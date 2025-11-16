@@ -10,40 +10,56 @@
       --bg:#071024;
       --card:#0b1220;
       --muted:#9aa4b2;
-      --glass: rgba(255,255,255,0.03);
-      --accent-a: linear-gradient(90deg,#06b6d4,#7c3aed);
-      --accent-b: linear-gradient(90deg,#ff7a18,#af002d);
-      --accent-c: linear-gradient(90deg,#00c6ff,#0072ff);
-      --accent-d: linear-gradient(90deg,#f6d365,#fda085);
-      --accent-e: linear-gradient(90deg,#7bffb2,#00b09b);
       color-scheme: dark;
       font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
     }
 
     *{box-sizing:border-box}
     html,body{height:100%;margin:0}
+    /* place page content near top-left (corner) for desktop & mobile */
     body{
       background:
         radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.06), transparent),
         linear-gradient(180deg,#071024 0%, #081122 100%);
-      display:flex;align-items:center;justify-content:center;padding:28px;color:#e6eef8;
+      display:flex;
+      align-items:flex-start;      /* top */
+      justify-content:flex-start;  /* left */
+      padding:28px;
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
     }
 
-    .container{width:100%;max-width:980px}
+    .container{width:100%;max-width:980px;margin:0}
     .card{
       background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:14px;padding:28px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 12px 40px rgba(2,6,23,0.7);
+      border-radius:14px;
+      padding:28px;
+      border:1px solid rgba(255,255,255,0.04);
+      box-shadow:0 12px 40px rgba(2,6,23,0.7);
+      margin-top:18px;
+      margin-left:18px;
+      width:100%;
     }
 
     .brand{display:flex;align-items:center;gap:12px}
     .logo{
-      width:64px;height:64px;border-radius:14px;background:linear-gradient(135deg,#06b6d4,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:800;font-family:'Roboto Mono',monospace;color:#021018;font-size:20px;box-shadow:0 8px 26px rgba(7,22,33,0.6)
+      width:64px;height:64px;border-radius:14px;background:#000;display:flex;align-items:center;justify-content:center;font-weight:800;font-family:'Roboto Mono',monospace;color:#fff;font-size:20px;box-shadow:0 8px 26px rgba(7,22,33,0.6)
     }
     h1{margin:6px 0 4px;font-size:1.6rem}
     .subtitle{color:var(--muted);margin:0 0 8px}
     .desc{color:var(--muted);line-height:1.5;margin-bottom:12px}
 
-    .social-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px;justify-items:center}
+    /* GRID: Desktop 3-col, Tablet 2-col, Mobile 2-per-row centered */
+    .social-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      margin-top:12px;
+      justify-items:center;
+    }
+
     .link-card{
       display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;
       background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
@@ -52,191 +68,80 @@
     }
     .link-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(7,22,33,0.6)}
 
-    /* UPDATED icon-wrap: use ::before for gradient bg and svg above it */
     .icon-wrap{
-      width:48px;height:48px;border-radius:10px;
-      display:flex;align-items:center;justify-content:center;
-      position:relative;overflow:hidden;flex-shrink:0;
-      background:transparent;
+      width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;flex-shrink:0;background:transparent;
     }
-    /* default background layer (can be overridden by --icon-bg inline) */
-    .icon-wrap::before{
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: 10px;
-      background: var(--icon-bg, linear-gradient(90deg,#06b6d4,#7c3aed));
-      z-index: 0;
-      opacity: 0.0; /* by default hidden because we use real images */
-    }
-    /* ensure SVG sits above the gradient */
-    .icon-wrap svg{
-      position: relative;
-      z-index: 1;
-      width:26px;
-      height:26px;
-      display:block;
-    }
-    /* no-bg class removes the background layer so full-color SVG/images shows */
+    .icon-wrap::before{ content:""; position:absolute; inset:0; border-radius:10px; background:var(--icon-bg, linear-gradient(90deg,#06b6d4,#7c3aed)); z-index:0; opacity:0; }
     .icon-wrap.no-bg::before{ display:none; }
-    .icon-wrap.no-bg{ background: transparent; }
-
     .icon-wrap img{ position:relative; z-index:1; width:100%; height:100%; object-fit:cover; display:block; border-radius:inherit; }
 
     .meta{display:flex;flex-direction:column}
     .link-title{font-weight:800; font-size:15px; color:inherit}
-    .link-sub{display:none} /* username hidden */
+    .link-sub{display:none}
 
-    .actions{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;justify-content:center}
+    /* Actions (copy + call) — force left corner */
+    .actions{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;justify-content:flex-start}
     .btn-primary{background:linear-gradient(90deg,#06b6d4,#7c3aed);padding:10px 14px;border-radius:10px;color:#021018;font-weight:800;border:none;cursor:pointer;text-decoration:none}
     .btn-ghost{padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit;text-decoration:none}
 
     footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
 
-    /* Popup Overlay */
-    .popup-overlay{
-      position:fixed;
-      top:0;left:0;
-      width:100%;height:100%;
-      background:rgba(0,0,0,0.55);
-      backdrop-filter:blur(6px);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      animation:fadeIn 0.22s ease;
-      z-index:9999;
-    }
+    /* Popup & toast */
+    .popup-overlay{ position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.55); backdrop-filter:blur(6px); display:none; align-items:center; justify-content:center; z-index:9999; }
+    .popup-box{ background:#0b1220; padding:22px; width:340px; border-radius:14px; text-align:center; border:1px solid rgba(255,255,255,0.06); box-shadow:0 12px 40px rgba(0,0,0,0.6); }
+    .close-btn{ background:linear-gradient(90deg,#06b6d4,#7c3aed); border:none; padding:8px 18px; border-radius:10px; cursor:pointer; font-weight:700; color:#021018; }
+    .toast{ position:fixed; left:50%; transform:translateX(-50%); bottom:28px; background:#0e1724; padding:10px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.04); box-shadow:0 10px 30px rgba(2,6,23,0.6); color:var(--muted); font-size:14px; display:none; z-index:10000; }
 
-    /* Popup Box */
-    .popup-box{
-      background:#0b1220;
-      padding:22px;
-      width:340px;
-      border-radius:14px;
-      text-align:center;
-      border:1px solid rgba(255,255,255,0.06);
-      box-shadow:0 12px 40px rgba(0,0,0,0.6);
-      animation:popupAnim 0.22s ease;
-    }
-
-    .popup-box h2{
-      margin:0 0 8px 0;
-      font-size:18px;
-      font-weight:800;
-      color:#e6eef8;
-    }
-
-    .popup-box p{
-      margin:0 0 16px 0;
-      color:#b4c0d0;
-      font-size:14px;
-      line-height:1.4;
-    }
-
-    .close-btn{
-      background:linear-gradient(90deg,#06b6d4,#7c3aed);
-      border:none;
-      padding:8px 18px;
-      border-radius:10px;
-      cursor:pointer;
-      font-weight:700;
-      color:#021018;
-    }
-
-    @keyframes fadeIn{
-      from{opacity:0} to{opacity:1}
-    }
-    @keyframes popupAnim{
-      from{transform:scale(0.95); opacity:0}
-      to{transform:scale(1); opacity:1}
-    }
-
-    /* small toast */
-    .toast{
-      position:fixed;left:50%;transform:translateX(-50%);bottom:28px;background:#0e1724;padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 10px 30px rgba(2,6,23,0.6);color:var(--muted);font-size:14px;display:none;z-index:10000;
-    }
-
+    /* responsive tweaks */
     @media (max-width:880px){
-      .social-grid{grid-template-columns:repeat(2,1fr)}
+      .social-grid{ grid-template-columns: repeat(2,1fr); }
     }
+
+    /* mobile: keep 2-per-row centered, smaller spacing; brand aligns left (corner) but items look balanced */
     @media (max-width:520px){
-      .social-grid{grid-template-columns:1fr}
-    }
-
-    /* ======= MOBILE IMPROVEMENTS & PREMIUM 2-per-row CENTERED ======= */
-
-    /* Grid default for PC already set above (3 columns). Keep justify-items center so cards center in each cell. */
-    .social-grid { justify-items: center; }
-
-    /* Tablet: 2 per row */
-    @media (max-width:880px){
-      .social-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    }
-
-    /* Mobile: 2 per row, centered cards, fixed max-width so two items look balanced */
-    @media (max-width:520px){
-      .social-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-        justify-items: center;
+      .social-grid{
+        grid-template-columns: repeat(2,1fr);
+        gap:12px;
+        justify-items:center;
       }
 
       .link-card {
-        width: 100%;
-        max-width: 210px; /* perfect for 2-per-row */
-        padding: 12px 14px;
-        min-height: 70px;
-        border-radius: 14px;
+        width:100%;
+        max-width:210px;
+        padding:12px 14px;
+        min-height:70px;
+        border-radius:14px;
       }
 
-      .icon-wrap {
-        width: 46px;
-        height: 46px;
-      }
+      .icon-wrap{ width:46px; height:46px; }
+      .link-title{ font-size:15px; }
+      h1{ font-size:1.18rem; }
+      .subtitle, .desc { font-size:13.5px; }
 
-      .link-title {
-        font-size: 15px;
-      }
-
-      h1 {
-        font-size: 1.18rem;
-        text-align: center;
-      }
-
-      .subtitle, .desc {
-        text-align: center;
-      }
-
-      .brand {
-        justify-content: center;
-        text-align: center;
-      }
-
-      .brand .logo { margin-bottom: 6px; }
+      /* keep brand aligned to left (corner look) */
+      .brand { justify-content:flex-start; align-items:center; gap:12px; flex-direction:row; }
+      .brand .logo { margin-bottom:0; }
     }
 
-    /* small adjustments for very small phones */
+    /* very small phones */
     @media (max-width:380px){
       .link-card{ max-width:180px; padding:10px; min-height:64px }
       .icon-wrap{ width:42px; height:42px }
       .link-title{ font-size:14px }
     }
 
-    /* prevent horizontal overflow */
-    img{ max-width:100%; height:auto; display:block; }
-    body { overflow-x: hidden; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
   </style>
 </head>
 <body>
   <div class="container">
     <main class="card" role="main">
-      <div class="brand" style="margin-bottom:10px;flex-direction:column;align-items:center;">
-        <!-- Profile image (replace PZ) -->
+      <div class="brand" style="margin-bottom:10px;flex-direction:row;align-items:center;">
+        <!-- Profile image (PZ replaced with real image) -->
         <div class="logo" style="background:none;padding:0;overflow:hidden;border-radius:14px;">
           <img src="https://i.postimg.cc/0NT6rb39/Copilot-20251116-203742.png" alt="Profile Photo"
                style="width:100%;height:100%;object-fit:cover;border-radius:14px;display:block;">
         </div>
-        <div style="margin-top:8px;text-align:center">
+        <div style="margin-left:10px">
           <div style="font-weight:800;font-size:18px">PIAS</div>
           <div style="font-size:13px;color:var(--muted)">CSE Student • Developer</div>
         </div>
@@ -248,7 +153,7 @@
 
       <div class="social-grid" aria-label="Contact links">
 
-        <!-- 1. Facebook -->
+                <!-- 1. Facebook -->
         <a class="link-card" href="https://facebook.com/pias404" target="_blank" rel="noopener noreferrer">
           <div class="icon-wrap no-bg" aria-hidden="true" style="padding:0;">
             <img src="https://i.postimg.cc/X7vQfYxg/5D8s-Gs-HJl-J.png" alt="Facebook Logo">
@@ -362,7 +267,7 @@
       if(e.key === 'Escape') closePopup();
     });
 
-    /* Copy + Toast (no blocking alert) */
+    /* Copy + Toast */
     function showToast(msg, ms = 1400){
       const t = document.getElementById('toast');
       t.textContent = msg;
@@ -375,12 +280,8 @@
       if(navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(text).then(()=>{
           showToast('Email copied to clipboard');
-        }).catch(()=>{
-          fallbackCopy(text);
-        });
-      } else {
-        fallbackCopy(text);
-      }
+        }).catch(()=>{ fallbackCopy(text); });
+      } else { fallbackCopy(text); }
     }
 
     function fallbackCopy(text){
