@@ -130,6 +130,78 @@
       .link-title{ font-size:14px }
     }
 
+
+
+
+
+
+    /* ======= Layout balance fixes (desktop + mobile) ======= */
+
+/* allow container/card to expand more on wide screens so right-side empty space reduces */
+.container {
+  max-width: 1200px; /* allow bigger page area on large screens */
+}
+
+/* let the card use most of available width but not overflow the viewport */
+.card {
+  width: min(1100px, calc(100% - 56px)); /* responsive maximum width */
+  max-width: 1100px;
+  box-sizing: border-box;
+}
+
+/* On large screens align grid items to start (left) so they don't center inside small column */
+.social-grid {
+  justify-items: start; /* left align cards inside grid cells on desktop */
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* robust 3-column layout */
+}
+
+/* make link-cards flexible (allow them to use column width) */
+.link-card {
+  max-width: none; /* allow full column width */
+}
+
+/* Tablet: two columns, center items to look balanced */
+@media (max-width: 880px) {
+  .card { width: min(900px, calc(100% - 40px)); }
+  .social-grid {
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+  }
+}
+
+/* Mobile: two-per-row centered, card uses near-full width with small side margins */
+@media (max-width: 520px) {
+  .card {
+    width: calc(100% - 28px);
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+
+  .social-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    justify-items: center;
+  }
+
+  /* keep link-card comfortable size on small screens */
+  .link-card {
+    max-width: 210px;
+    width: 100%;
+  }
+}
+
+/* tiny phones: slightly smaller cards to avoid horizontal scroll */
+@media (max-width: 380px) {
+  .card { padding: 14px; }
+  .link-card { max-width: 180px; padding: 10px; }
+}
+
+
+
+
+
+
+    
   </style>
 </head>
 <body>
